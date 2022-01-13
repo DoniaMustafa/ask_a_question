@@ -1,0 +1,54 @@
+import 'dart:convert';
+
+import 'package:discy_application/sre/data/model/article/article_model.dart';
+import 'package:discy_application/sre/domain/entities/article/article.dart';
+import 'package:equatable/equatable.dart';
+
+ArticleResponseModel articleResponseModel(String str) => ArticleResponseModel.fromJson(json.decode(str));
+
+class ArticleResponseModel extends Ar{
+  ArticleResponseModel(
+      {bool? status,
+      int? count,
+      int? countTotal,
+      int? pages,
+      List<Article>? articleModel}) : super(status, count, countTotal, pages, articleModel);
+  // final bool? status;
+  // final int? count;
+  // final int? countTotal;
+  // final int? pages;
+  // final List<ArticleModel>? articleModel;
+  //
+  // ArticleResponseModel(
+  //     {this.status,
+  //     this.count,
+  //     this.countTotal,
+  //     this.pages,
+  //      this.articleModel});
+  //
+  factory ArticleResponseModel.fromJson(Map<String, dynamic> json) =>
+      ArticleResponseModel(
+        status: json["status"],
+        count: json["count"],
+        countTotal: json["count_total"],
+        pages: json["pages"],
+        articleModel: List<ArticleModel>.from(
+            json["posts"].map((x) => ArticleModel.fromJson(x))),
+      );
+
+}
+class Ar extends Equatable{
+  final bool? status;
+  final int? count;
+  final int? countTotal;
+  final int? pages;
+  final List<Article>? articleModel;
+  @override
+  // TODO: implement props
+  List<Object?> get props => [this.status, this.count, this.countTotal, this.pages, this.articleModel];
+  @override
+  bool? get stringify => true;
+
+  Ar(this.status, this.count, this.countTotal, this.pages, this.articleModel);
+
+}
