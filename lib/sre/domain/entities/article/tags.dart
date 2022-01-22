@@ -5,7 +5,7 @@ class Tags extends Equatable{
     this.id,
     this.name,
     this.description,
-
+this.taxonomy,
     this.categoryFollowers,
     this.followers,
   );
@@ -13,7 +13,9 @@ class Tags extends Equatable{
   final int id;
   final String name;
   final String description;
-   dynamic categoryFollowers;
+  final String taxonomy;
+
+  dynamic categoryFollowers;
   final List<String> followers;
 
   @override
@@ -22,6 +24,7 @@ class Tags extends Equatable{
     id,
     name,
     description,
+    taxonomy,
     categoryFollowers,
     followers,
   ];

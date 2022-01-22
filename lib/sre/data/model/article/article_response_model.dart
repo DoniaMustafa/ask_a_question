@@ -6,26 +6,13 @@ import 'package:equatable/equatable.dart';
 
 ArticleResponseModel articleResponseModel(String str) => ArticleResponseModel.fromJson(json.decode(str));
 
-class ArticleResponseModel extends Ar{
+class ArticleResponseModel extends ResponseArticle{
   ArticleResponseModel(
       {bool? status,
       int? count,
       int? countTotal,
       int? pages,
       List<Article>? articleModel}) : super(status, count, countTotal, pages, articleModel);
-  // final bool? status;
-  // final int? count;
-  // final int? countTotal;
-  // final int? pages;
-  // final List<ArticleModel>? articleModel;
-  //
-  // ArticleResponseModel(
-  //     {this.status,
-  //     this.count,
-  //     this.countTotal,
-  //     this.pages,
-  //      this.articleModel});
-  //
   factory ArticleResponseModel.fromJson(Map<String, dynamic> json) =>
       ArticleResponseModel(
         status: json["status"],
@@ -37,7 +24,7 @@ class ArticleResponseModel extends Ar{
       );
 
 }
-class Ar extends Equatable{
+class ResponseArticle extends Equatable{
   final bool? status;
   final int? count;
   final int? countTotal;
@@ -49,6 +36,6 @@ class Ar extends Equatable{
   @override
   bool? get stringify => true;
 
-  Ar(this.status, this.count, this.countTotal, this.pages, this.articleModel);
+  ResponseArticle(this.status, this.count, this.countTotal, this.pages, this.articleModel);
 
 }

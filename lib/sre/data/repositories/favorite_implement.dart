@@ -1,16 +1,17 @@
 import 'package:dio/src/response.dart';
+import 'package:discy_application/sre/core/usecases/usecase.dart';
 import 'package:discy_application/sre/core/utils/end_point.dart';
-import 'package:discy_application/sre/domain/repositories/dio_server_repo.dart';
 import 'package:discy_application/sre/domain/repositories/fav_repo.dart';
 
 class FavoriteImplement implements FavoriteRepository{
   FavoriteImplement(this._dioServerRepos);
 
- final DioServerRepos? _dioServerRepos;
+ final UseCase? _dioServerRepos;
   @override
   Future<Response> getFavFromArticle()async {
  return await _dioServerRepos!.call(path: kGetFav,query: {
-   'page':1
+   'page':1,
+   'count':10
  });
   }
 
@@ -20,6 +21,16 @@ class FavoriteImplement implements FavoriteRepository{
       'id':id,
       'action':action
     });
+  }
+
+  @override
+  Future<Response> removeSingleQuestionFromFavorite({required int id})async {
+
+    return await _dioServerRepos!.call(path: kFav,query:{
+      'id':id,
+      'action':'remove'
+    });
+
   }
 
 

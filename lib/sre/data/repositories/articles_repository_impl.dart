@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:discy_application/sre/core/usecases/usecase.dart';
 import 'package:discy_application/sre/core/utils/end_point.dart';
 import 'package:discy_application/sre/domain/repositories/article_repo.dart';
-import 'package:discy_application/sre/domain/repositories/dio_server_repo.dart';
 
 class ArticlesRepositoryImplementation implements ArticleRepository {
-  final DioServerRepos? _dioServer;
+  final UseCase? _dioServer;
   ArticlesRepositoryImplementation(this._dioServer);
 
   @override

@@ -1,22 +1,36 @@
+import 'package:dio/dio.dart';
 import 'package:discy_application/sre/core/parameters/api_request..dart';
 import 'package:discy_application/sre/core/resources/data_state.dart';
+import 'package:discy_application/sre/data/datasource/remote/dio_server.dart';
 import 'package:discy_application/sre/domain/entities/article/article.dart';
 
 abstract class UseCase<T,P>{
-  Future <T>call(P data);
-  Future <T>callable(P data);
+  Future <T>call({required String path, Map<String, dynamic> query});
+  Future <T>callPost({required String path, Map<String, dynamic> data});
 
 }
 
 class DataUseCases extends UseCase{
+
+  DioServer? _dioServer;
+  DataUseCases(this._dioServer);
+
   @override
-  Future<DioState<List<Article>>> call(data) async{
-  return await data;
+  Future <Response>call(
+      {required String path, Map<String, dynamic>? query})async {
+    return await _dioServer!.dio.get(path,queryParameters: query,);
   }
 
   @override
-  Future<DioState<dynamic>> callable(data)async {
-    return await data;
+  Future<Response> callPost({required String path, Map<String, dynamic>? data}) async{
+    return await _dioServer!.dio.post(path,data: data);
   }
+
+
+
+  // @override
+  // Future<DioState<dynamic>> callable(data)async {
+  //   return await data;
+  // }
 
 }

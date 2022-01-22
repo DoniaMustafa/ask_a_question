@@ -4,7 +4,6 @@ import 'package:discy_application/sre/core/utils/const.dart';
 import 'package:discy_application/sre/di.dart';
 import 'package:discy_application/sre/presentation/bloc/drawer_bloc/drawer_cubit.dart';
 import 'package:discy_application/sre/presentation/widgets/default_circle_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

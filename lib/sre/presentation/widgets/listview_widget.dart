@@ -53,61 +53,6 @@ Widget flagCircle({required Function onPress}) => DefaultCircleWidget(
       onPress: () => onPress,
     );
 
-Widget userInfo({required Article userInfo}) {
-  return Container(
-      alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              RichText(
-                text: TextSpan(
-                    text: userInfo.author!.name,
-                    style: textTheme.subtitle1!
-                        .copyWith(color: Colors.indigoAccent)),
-              ),
-              if (userInfo.author!.verified = true)
-                SizedBox(
-                  width: 5,
-                ),
-              if (userInfo.author!.verified = true)
-                DefaultCircleWidget(
-                  icon: Icons.done,
-                  isIcon: true,
-                  r: 17,
-                  iconSize: 15,
-                  circleColor: blue(),
-                  wd: 50,
-                  ht: 20,
-                  iconColor: Colors.white,
-                ),
-            ],
-          ),
-          if (userInfo.categories != null)
-            SizedBox(
-              height: 8,
-            ),
-          if (userInfo.author!.badge!.color != "" ||
-              userInfo.author!.badge!.name != "")
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 7),
-              alignment: Alignment.centerLeft,
-              color: HexColor(
-                  '${userInfo.author!.badge!.color != "" ? userInfo.author!.badge!.color : '#00000000'}'),
-              child: userInfo.author!.badge!.name == null
-                  ? Container()
-                  : RichText(
-                      text: TextSpan(
-                          text: userInfo.author!.badge!.name,
-                          style: textTheme.bodyText2!
-                              .copyWith(color: Colors.white)),
-                    ),
-            ),
-        ],
-      ));
-}
 
 Widget userPhoto({required String author}) => DefaultCircleWidget(
       r2: 30,
@@ -119,38 +64,6 @@ Widget userPhoto({required String author}) => DefaultCircleWidget(
       onPress: () {},
     );
 
-Widget topActionButt({required Article customFields}) => BlocProvider(
-      create: (context) => di<HomeCubit>(),
-      child: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          return Row(
-            children: [
-              buttonAction(
-                  onPress: () => di<HomeCubit>().postVoteAction(
-                      type: customFields.type!,
-                      id: customFields.id!,
-                      count: 'up')),
-              customFields.customFields == null
-                  ? Container()
-                  : Padding(
-                      padding: EdgeInsets.only(left: 5, right: 5),
-                      child: RichText(
-                        text: TextSpan(
-                            text: customFields.customFields!.questionVote![0]
-                                .toString(),
-                            style: textTheme.caption),
-                      ),
-                    ),
-              buttonAction(
-                  onPress: () => di<HomeCubit>().postVoteAction(
-                      type: customFields.type!,
-                      id: customFields.id!,
-                      count: 'down'))
-            ],
-          );
-        },
-      ),
-    );
 
 Widget title({required Article article}) => RichText(
       text: TextSpan(
@@ -166,133 +79,11 @@ Widget content({required Article articleModel}) => Container(
         },
       ),
     );
-Widget buildTags({
-  required Article article,
-  required BuildContext context,
-}) =>
-    Container(
-      child: GridView.count(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 4,
-              childAspectRatio: 1.9/ 0.7,
-              children: List.generate(
-                article.tags!.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    print(article.tags![index].id);
-                    print(article.tags![index].name);
+// Widget buildTags({
+//   required Article article,
+//   required BuildContext context,
+// }) =>
 
-                    navigatorTo(
-                    context: context,
-                    widget: SingleCategoryScreen(
-                        id: article.tags![index].id,
-                        name: article.tags![index].name.toString()),
-                  );
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: lightGrey(),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    padding: EdgeInsets.symmetric(horizontal: 2, ),
-                    child: Text(
-                      '#${article.tags![index].name}',
-                      style: textTheme.caption,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-    );
-
-Widget answerBut({required Function onPress}) => DefaultButtonWidget(
-      onPress: () => onPress,
-      text: 'Answer',
-    );
-Widget viewsIcon({required Function onPress}) => DefaultCircleWidget(
-      icon: Icons.remove_red_eye_outlined,
-      r: 20,
-      wd: 40,
-      ht: 40,
-      isIcon: true,
-      iconSize: 20,
-      onPress: () => onPress,
-    );
-Widget viewsPeople({required CustomFields customFieldsModel}) {
-  return Container(
-    child: customFieldsModel == null
-        ? Container()
-        : RichText(
-            text: TextSpan(
-              style: textTheme.button!.copyWith(color: Colors.black),
-              text: customFieldsModel.postStats![0].toString(),
-            ),
-          ),
-  );
-}
-
-Widget commentIcon(
-        {required Function onPress,
-        required context,
-        required int id,
-        required String type}) =>
-    DefaultCircleWidget(
-      icon: Icons.question_answer_outlined,
-      r: 20,
-      wd: 40,
-      ht: 40,
-      isIcon: true,
-      iconSize: 20,
-      onPress: () => navigatorTo(
-          context: context,
-          widget: SingleQuestionScreen(
-            id: id,
-            type: type,
-          )),
-    );
-Widget commentNumb({required CustomFields customFieldsModel}) {
-  return Container(
-    child: RichText(
-      text: TextSpan(
-        style: textTheme.button!.copyWith(color: Colors.black),
-        text: customFieldsModel.commentCount![0].toString(),
-      ),
-    ),
-  );
-}
-
-Widget faveIcon({required Article article}) =>  BlocProvider(
-  create: (context) =>
-      di<FavCubit>(),
-  child: BlocConsumer<FavCubit, FavState>(
-  listener: (context, state) {
-    if (state is  FavChangeAction){
-      Fluttertoast.showToast(msg: 'add',gravity: ToastGravity.CENTER,fontSize: 50.0,textColor: Colors.black);}
-
-  },
-  builder: (context, state) {
-    return Stack(
-      children: [
-        DefaultCircleWidget(
-            icon: Icons.bookmark_outline,
-            r: 30.0,
-            wd: 40,
-            ht: 40,
-            isIcon: true,
-            iconSize: 20,
-            iconColor:
-            favorite[article.id!]!=true ? Colors.green :deepGrey(),
-            onPress: () =>
-                di<FavCubit>().select(id: article.id!)
-        ),
-      ],
-    );
-
-
-  },
-),
-);
 Widget buttonAction({required onPress}) => DefaultCircleWidget(
     icon: Icons.arrow_drop_up,
     r: 20,

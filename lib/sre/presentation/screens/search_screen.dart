@@ -1,11 +1,8 @@
 import 'package:discy_application/sre/config/color/def_color.dart';
 import 'package:discy_application/sre/config/font_stayle/text_style.dart';
-import 'package:discy_application/sre/core/utils/const.dart';
 import 'package:discy_application/sre/di.dart';
-import 'package:discy_application/sre/domain/entities/article/article.dart';
 import 'package:discy_application/sre/presentation/bloc/search_bloc/search_cubit.dart';
-import 'package:discy_application/sre/presentation/widgets/build_list_item_widget.dart';
-import 'package:discy_application/sre/presentation/widgets/listview_widget.dart';
+import 'package:discy_application/sre/presentation/widgets/custom_list_of_rticle_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -78,8 +75,8 @@ class SearchScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, i) {
-                  return _buildListOfItem(
-                      context: context,
+                  return CustomListOfArticle(
+
                       article: state.articleModel!.articleModel![i]);
                 },
                 separatorBuilder: (context, i) => Divider(
@@ -90,33 +87,5 @@ class SearchScreen extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
         },
-      );
-  _buildListOfItem({required Article article, required context}) => Container(
-        padding: EdgeInsets.all(15),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          article.categories == null
-              ? Container()
-              : buildCategAndDate(
-                  context: context,
-                  article: article,
-                ),
-          SizedBox(
-            height: 15,
-          ),
-          buildUserInfo(article),
-          SizedBox(height: 20),
-          // if (article.thumbnail != null) image(img: article),
-          // if (article.thumbnail != null) SizedBox(height: 20),
-          title(article: article),
-          SizedBox(height: 20),
-          content(articleModel: article),
-          article.tags == null
-              ? Container()
-              : buildTags(article: article, context: context),
-          Divider(),
-          article.customFields == null
-              ? Container()
-              : buildButtonsAction(article, context)
-        ]),
       );
 }

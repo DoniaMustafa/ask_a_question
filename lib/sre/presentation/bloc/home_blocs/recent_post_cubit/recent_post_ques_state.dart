@@ -8,7 +8,7 @@ class RecentPostQuesInitial extends RecentPostQuesState {}
 class RecentPostLoadingState extends RecentPostQuesState {}
 
 class RecentPostSuccessState extends RecentPostQuesState {
-  final DifferentArticleResponseModel? articleModel;
+  final ArticleResponseModel articleModel;
   RecentPostSuccessState({required this.articleModel});
 }
 

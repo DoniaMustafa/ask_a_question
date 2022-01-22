@@ -2,6 +2,7 @@ import 'package:discy_application/sre/config/color/def_color.dart';
 import 'package:discy_application/sre/di.dart';
 import 'package:discy_application/sre/presentation/bloc/categories_bloc/category_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/drawer_bloc/drawer_cubit.dart';
+import 'package:discy_application/sre/presentation/bloc/fav_bloc/fav_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/home_blocs/answer_bloc/answer_ques_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/home_blocs/bump_bloc/bump_que_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/home_blocs/home_bloc/home_cubit.dart';
@@ -25,7 +26,23 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+
+
+  //
+  // @override
+  // void dispose() {
+  //   di<FavCubit>().stream.drain();
+  //   super.dispose();
+  // }
+
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

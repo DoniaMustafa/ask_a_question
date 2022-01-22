@@ -1,16 +1,15 @@
 
 import 'dart:convert';
 
-ChangeFavoriteModel changeFavoriteModel(String d)=>ChangeFavoriteModel.fromJson(json.decode(d.toString()));
+import 'package:discy_application/sre/domain/entities/favorite.dart';
 
-class ChangeFavoriteModel{
- final bool status;
- final bool  favorite;
+ChangeFavoriteModel changeFavoriteModel(String str)=>ChangeFavoriteModel.fromJson(json.decode(str));
 
- ChangeFavoriteModel({required this.status,required this.favorite});
- factory ChangeFavoriteModel.fromJson(Map<String, dynamic> json) =>ChangeFavoriteModel(
+class ChangeFavoriteModel extends ChangeFavorite{
+  ChangeFavoriteModel({required bool status,required bool favorite}) : super(status: status,favorite:  favorite);
+factory ChangeFavoriteModel.fromJson(Map<String, dynamic> json) =>ChangeFavoriteModel(
 
-   status:json['status'],
+  status:json['status'],
    favorite:json['favorite'],
  );
 

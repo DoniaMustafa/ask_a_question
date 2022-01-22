@@ -1,9 +1,5 @@
 import 'package:discy_application/sre/data/model/article/author_badge_model.dart';
-import 'package:discy_application/sre/data/model/different_article/author_badge_model.dart';
 import 'package:discy_application/sre/domain/entities/article/author.dart';
-import 'package:discy_application/sre/domain/entities/article/badge.dart';
-import 'package:discy_application/sre/domain/entities/different_article/different_author.dart';
-import 'package:discy_application/sre/domain/entities/different_article/different_badge.dart';
 
 class AuthorModel extends Author {
   AuthorModel(
@@ -11,14 +7,14 @@ class AuthorModel extends Author {
         final String? name,
         final String? avatar,
         final  bool? verified,
-        final Badge? badge,
+        final AuthorBadgeModel? badge,
         final  String? profileCredential}) : super(id, name, avatar, verified, badge, profileCredential);
   factory AuthorModel.fromJson(Map<String, dynamic> json) => AuthorModel(
         id: json["id"],
         name: json["name"],
         avatar: json["avatar"],
         verified: json["verified"],
-        badge: DifferentAuthorBadgeModel.fromJson(json["badge"]),
+        badge: AuthorBadgeModel.fromJson(json["badge"]),
         profileCredential: json["profile_credential"],
       );
   //

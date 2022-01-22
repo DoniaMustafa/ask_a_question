@@ -6,7 +6,7 @@ abstract class SinglePostState {}
 class SinglePostInitial extends SinglePostState {}
 class SinglePostLoadingState extends SinglePostState {}
 class SinglePostSuccessState extends SinglePostState {
-  final SingleQuestionModel singleQuestionModel;
+  final SingleQuestionPostModel singleQuestionModel;
 
   SinglePostSuccessState({required this.singleQuestionModel});
 }

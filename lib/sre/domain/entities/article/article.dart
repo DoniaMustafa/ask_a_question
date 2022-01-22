@@ -15,7 +15,7 @@ class Article extends Equatable {
   final List<Category>? categories;
   final List<Tags>? tags;
   final Author? author;
-  // final String? thumbnail;
+  final String? thumbnail;
   final List<dynamic>? attachments;
   final String? commentStatus;
   final CustomFields? customFields;
@@ -32,7 +32,7 @@ class Article extends Equatable {
       this.categories,
       this.tags,
       this.author,
-      // this.thumbnail,
+      this.thumbnail,
       this.type,
       this.attachments,
       this.commentStatus,
@@ -50,7 +50,7 @@ class Article extends Equatable {
         categories,
         tags,
         author,
-    // thumbnail,
+    thumbnail,
     type,
         attachments,
         commentStatus,

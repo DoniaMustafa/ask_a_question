@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:discy_application/sre/data/model/answer_article/answer_article_respo_model.dart';
 import 'package:discy_application/sre/data/model/answer_article/answer_question_model.dart';
-import 'package:discy_application/sre/data/model/model.dart';
+import 'package:discy_application/sre/data/model/single_post/response_single_post_model.dart';
+import 'package:discy_application/sre/data/model/single_post/single_post_model.dart';
 import 'package:discy_application/sre/domain/repositories/single_question_repo.dart';
 import 'package:meta/meta.dart';
 part 'singel_post_state.dart';
@@ -11,11 +11,11 @@ class SinglePostCubit extends Cubit<SinglePostState> {
   SinglePostCubit(this._repository) : super(SinglePostInitial());
 
   SingleQuestionRepository _repository;
-  SingleQuestionModel? singleQues;
+  ResponseSingleQuestionModel? singleQues;
 
   Future<Response?> getSingleQues(
       {required int id, required String postType}) async {
-    // emit(SinglePostLoadingState());
+    emit(SinglePostLoadingState());
     return await _repository
         .getSinglePost(id: id, postType: postType)
         .then((value) {
@@ -23,7 +23,7 @@ class SinglePostCubit extends Cubit<SinglePostState> {
       print('singleQues : $singleQues');
       print('singleQues : ${value.data}');
 
-      emit(SinglePostSuccessState(singleQuestionModel: singleQues!));
+      emit(SinglePostSuccessState(singleQuestionModel: singleQues!.post!));
     }).catchError((error) {
       print(error.toString());
       emit(SinglePostErrorState(error: error.toString()));

@@ -1,14 +1,16 @@
 import 'package:discy_application/sre/config/color/def_color.dart';
 import 'package:discy_application/sre/config/font_stayle/text_style.dart';
 import 'package:discy_application/sre/data/model/answer_article/answer_question_model.dart';
-import 'package:discy_application/sre/data/model/model.dart';
+import 'package:discy_application/sre/data/model/single_post/single_post_model.dart';
 import 'package:discy_application/sre/domain/entities/answer_article/comment_answer.dart';
-import 'package:discy_application/sre/presentation/bloc/fav_bloc/fav_cubit.dart';
-import 'package:discy_application/sre/presentation/bloc/home_blocs/home_bloc/home_cubit.dart';
+import 'package:discy_application/sre/domain/entities/article/custom_fields.dart';
+import 'package:discy_application/sre/domain/entities/single_post/post_element.dart';
+import 'package:discy_application/sre/domain/entities/single_post/related_posts.dart';
 import 'package:discy_application/sre/presentation/bloc/singel_post_bloc/singel_post_cubit.dart';
 import 'package:discy_application/sre/presentation/widgets/default_circle_widget.dart';
 import 'package:discy_application/sre/presentation/widgets/list_answer_widget.dart';
 import 'package:discy_application/sre/presentation/widgets/listview_widget.dart';
+import 'package:discy_application/sre/presentation/widgets/widgets_inside_of_article/reaction_buttons_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -47,7 +49,8 @@ class SingleQuestionScreen extends StatelessWidget {
                                   .singleQues!
                                   .post!
                                   .relatedPosts!
-                                  .posts![0],context:context),
+                                  .posts![0],
+                              context: context),
                           _buildAnswerList(
                               commentModel: di<SinglePostCubit>().answerModel!)
                         ],
@@ -82,7 +85,8 @@ class SingleQuestionScreen extends StatelessWidget {
 
   _buildList(
           {required SingleQuestionPostModel article,
-          required PostElement postElement,context}) =>
+          required PostElement postElement,
+          context}) =>
       Column(
         children: [
           Container(
@@ -105,7 +109,7 @@ class SingleQuestionScreen extends StatelessWidget {
                 _content(articleModel: article),
                 _buildTags(article: article),
                 Divider(),
-                buildButtonsAction(article,context),
+                // buildButtonsAction(article, context),
               ],
             ),
           ),
@@ -119,9 +123,9 @@ class SingleQuestionScreen extends StatelessWidget {
         ],
       );
 
-  _buildCategAndDate({required SingleQuestionPostModel article}) =>
+  _buildCategAndDate({required SingleQuestionPostModel article,context}) =>
       Row(children: [
-        _category(categories: article.categories!, onPress: () {}),
+        category(categories: article.categories!, onPress: () {}, context: context),
         _dateTime(dateTime: article),
         Spacer(
           flex: 1,
@@ -143,48 +147,43 @@ class SingleQuestionScreen extends StatelessWidget {
             //     customFields: article, upPress: () {}, downPress: () {})
           ]);
 
-  buildButtonsAction(SingleQuestionPostModel articleModel,context) => Row(children: [
-        answerBut(onPress: () {}),
-        Spacer(
-          flex: 1,
-        ),
-        Container(
-          child: Row(
-            children: [
-              viewsIcon(onPress: () {}),
-              articleModel.customFields == null
-                  ? Container()
-                  : _viewsPeople(customFieldsModel: articleModel.customFields!),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Container(
-          child: Row(
-            children: [
-              commentIcon(onPress: () {},context:context,id:articleModel.id!,type: articleModel.type!  ),
-              articleModel.customFields == null
-                  ? Container()
-                  : _commentNumb(customFieldsModel: articleModel.customFields!),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-      ]);
+  // buildButtonsAction(CustomFields customFields, context) =>
+  //     Row(children: [
+  //       answerBut(onPress: () {}),
+  //       Spacer(
+  //         flex: 1,
+  //       ),
+  //       Container(
+  //         child: Row(
+  //           children: [
+  //             viewsIcon(onPress: () {}),
+  //             viewsPeople(text:customFields.postStats![0].toString()),
+  //           ],
+  //         ),
+  //       ),
+  //       SizedBox(
+  //         width: 10,
+  //       ),
+  //       Container(
+  //         child: Row(
+  //           children: [
+  //             commentIcon(
+  //                 onPress: () {},
+  //                 context: context,
+  //                 id:id,
+  //                 type: id),
+  //             singleQuestionArticle.customFields == null
+  //                 ? Container()
+  //                 : commentNumb(text: singleQuestionArticle.customFields!.postCountComments![0].toString()),
+  //           ],
+  //         ),
+  //       ),
+  //       SizedBox(
+  //         width: 10,
+  //       ),
+  //     ]);
 
-  _category({required List<Category> categories, required Function onPress}) =>
-      categories == null
-          ? Container()
-          : RichText(
-              text: TextSpan(
-                text: '${categories[0].name} -',
-                style: textTheme.caption!.copyWith(color: Colors.black),
-              ),
-            );
+
 
   _dateTime({required SingleQuestionPostModel dateTime}) => RichText(
         text: TextSpan(
@@ -208,7 +207,6 @@ class SingleQuestionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-
                     children: [
                       RichText(
                         text: TextSpan(
@@ -271,27 +269,6 @@ class SingleQuestionScreen extends StatelessWidget {
                 onPress: () {},
               ),
       );
-  // _topActionButt(
-  //         {required SingleQuestionPostModel customFields,
-  //         required Function upPress,
-  //         required Function downPress}) =>
-  //     Row(
-  //       children: [
-  //         buttonAction(),
-  //         customFields.customFields == null
-  //             ? Container()
-  //             : Padding(
-  //                 padding: EdgeInsets.only(left: 5, right: 5),
-  //                 child: RichText(
-  //                   text: TextSpan(
-  //                       text: customFields.customFields!.questionVote![0]
-  //                           .toString(),
-  //                       style: textTheme.caption),
-  //                 ),
-  //               ),
-  //         buttonAction(),
-  //       ],
-  //     );
   _image({required PostElement img}) => Container(
         width: double.infinity,
         height: 150,
@@ -335,30 +312,6 @@ class SingleQuestionScreen extends StatelessWidget {
                 ),
               ),
       );
-
-  _viewsPeople({required CustomFields customFieldsModel}) {
-    return Container(
-      child: customFieldsModel == null
-          ? Container()
-          : RichText(
-              text: TextSpan(
-                style: textTheme.button!.copyWith(color: Colors.black),
-                text: customFieldsModel.postStats![0].toString(),
-              ),
-            ),
-    );
-  }
-
-  _commentNumb({required CustomFields customFieldsModel}) {
-    return Container(
-      child: RichText(
-        text: TextSpan(
-          style: textTheme.button!.copyWith(color: Colors.black),
-          text: customFieldsModel.commentCount![0].toString(),
-        ),
-      ),
-    );
-  }
 
   _buildRelatedQuestion(
           {required SingleQuestionPostModel postModel,

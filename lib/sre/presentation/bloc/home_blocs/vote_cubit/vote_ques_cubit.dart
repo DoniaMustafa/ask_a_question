@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:discy_application/sre/data/model/article/article_response_model.dart';
-import 'package:discy_application/sre/data/model/different_article/article_response_model.dart';
 import 'package:discy_application/sre/domain/repositories/article_repo.dart';
 import 'package:meta/meta.dart';
 

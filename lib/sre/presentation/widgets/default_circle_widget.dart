@@ -25,7 +25,7 @@ class DefaultCircleWidget extends StatelessWidget {
   Color? circleColor;
   final IconData? icon;
   Color? iconColor;
-  final  onPress;
+  final Function? onPress;
   final String? image;
   final double? wd;
   final double? ht;
