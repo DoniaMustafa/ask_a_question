@@ -1,16 +1,6 @@
-# discy_application
+ask a question app
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](C:/Users/TL/Desktop/New folder/img5.png)![](C:/Users/TL/Desktop/New folder/img6.png)
+![](C:/Users/TL/Desktop/New folder/img7.png)![](C:/Users/TL/Desktop/New folder/img1.png)
+![](C:/Users/TL/Desktop/New folder/img2.png)![](C:/Users/TL/Desktop/New folder/img3.png)
+![](C:/Users/TL/Desktop/New folder/img4.png)
