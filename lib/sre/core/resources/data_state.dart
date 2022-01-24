@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 abstract class DioState<T> {
-  final T? data;
+  final Response ? data;
   final DioError? error;
 
   DioState({this.data, this.error});

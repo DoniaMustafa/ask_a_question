@@ -1,5 +1,6 @@
 const String kBaseURL = 'https://2code.info/demo/themes/Discy/Boxed/';
-
+const String kLogin ='api/user/login/';
+const String kForgotPass = 'api/user/forgot_password';
 const String kTabsCon='api/get_tabs_content';
 
 const String kRecantQu='get_recent_questions';
@@ -16,6 +17,8 @@ const String kCategoryIndex='api/get_category_index';
 const String kCategoryPost='api/get_category_posts';
 const String kQuestionCategory='question-category';
 const String kSingleQuestion = 'api/get_post';
+const String kSingleCategory = 'category';
+
 const String kAnswersQuestion ='api/posts/comments';
 const String kFAQ ='api/posts/faqs';
 const String kNotify ='wp-json/mobile/v1/notifications';

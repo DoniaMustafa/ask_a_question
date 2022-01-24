@@ -1,7 +1,6 @@
 import 'package:discy_application/sre/di.dart';
 import 'package:discy_application/sre/domain/entities/article/article.dart';
 import 'package:discy_application/sre/presentation/bloc/home_blocs/bump_bloc/bump_que_cubit.dart';
-import 'package:discy_application/sre/presentation/widgets/build_list_item_widget.dart';
 import 'package:discy_application/sre/presentation/widgets/custom_list_of_rticle_widget.dart';
 import 'package:discy_application/sre/presentation/widgets/default_text_button_widget.dart';
 import 'package:discy_application/sre/presentation/widgets/listview_widget.dart';

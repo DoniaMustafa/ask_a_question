@@ -6,8 +6,7 @@ abstract class SingleCategoryState {}
 class SingleCategoryInitial extends SingleCategoryState {}
 class SingleCategoryLoadingState extends SingleCategoryState {}
 class SingleCategorySuccessState extends SingleCategoryState {
-final  ArticleResponseModel? articleResponseModel;
-
+final  List<ArticleModel>? articleResponseModel;
 SingleCategorySuccessState({required this.articleResponseModel});
 }
 class SingleCategoryErrorState extends SingleCategoryState {

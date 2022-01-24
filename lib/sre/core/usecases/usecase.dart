@@ -4,9 +4,9 @@ import 'package:discy_application/sre/core/resources/data_state.dart';
 import 'package:discy_application/sre/data/datasource/remote/dio_server.dart';
 import 'package:discy_application/sre/domain/entities/article/article.dart';
 
-abstract class UseCase<T,P>{
-  Future <T>call({required String path, Map<String, dynamic> query});
-  Future <T>callPost({required String path, Map<String, dynamic> data});
+abstract class UseCase{
+  Future call({required String path, Map<String, dynamic> query});
+  Future callPost({required String path, Map<String, dynamic> data});
 
 }
 

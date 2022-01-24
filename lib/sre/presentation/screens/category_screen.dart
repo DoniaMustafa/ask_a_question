@@ -62,7 +62,7 @@ class CategoryScreen extends StatelessWidget {
               RichText(
                 text: TextSpan(
                     text: '${categoryModel.name}',
-                    style: textThemeData.textTheme.bodyText1),
+                    style: textThemeData.textTheme.subtitle1),
               ),
               SizedBox(
                 height: 10,

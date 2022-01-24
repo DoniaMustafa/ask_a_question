@@ -26,7 +26,7 @@ class ResponseTagModel{
     count: json["count"],
     countTotal: json["count_total"],
     pages: json["pages"],
-    tags: TagsModel.fromJson(json["tag"]),
+    tags: TagsModel.fromJson(json["i_tag"]),
     article: List<ArticleModel>.from(json["posts"].map((x) => ArticleModel.fromJson(x))),
   );
 

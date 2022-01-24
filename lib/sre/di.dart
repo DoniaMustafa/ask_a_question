@@ -24,6 +24,7 @@ import 'package:discy_application/sre/presentation/bloc/home_blocs/recent_bloc/r
 import 'package:discy_application/sre/presentation/bloc/home_blocs/recent_post_cubit/recent_post_ques_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/home_blocs/vote_cubit/vote_ques_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/layout_bloc/layout_cubit.dart';
+import 'package:discy_application/sre/presentation/bloc/login_bloc/login_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/search_bloc/search_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/settings_bloc/notify_bloc/notify_cubit.dart';
 import 'package:discy_application/sre/presentation/bloc/singel_post_bloc/singel_post_cubit.dart';
@@ -32,8 +33,10 @@ import 'package:discy_application/sre/presentation/bloc/tag_bloc/tag_cubit.dart'
 import 'package:get_it/get_it.dart';
 
 import 'core/usecases/usecase.dart';
+import 'data/repositories/login_implement.dart';
 import 'domain/repositories/current_user_repo.dart';
  import 'domain/repositories/fav_repo.dart';
+import 'domain/repositories/login_repo.dart';
 import 'domain/repositories/search_repo.dart';
 import 'domain/repositories/tags_repo.dart';
 import 'presentation/bloc/home_blocs/answer_bloc/answer_ques_cubit.dart';
@@ -66,40 +69,44 @@ Future<void> initializeDependency() async {
       () => FavoriteImplement(di<UseCase>()));
   di.registerLazySingleton<SearchRepository>(
       () => SearchImplement(di<UseCase>()));
-  di.registerSingleton<TagsRepository>(SingleTagsImplementation(di<UseCase>()));
+  di.registerLazySingleton<TagsRepository>(()=>SingleTagsImplementation(di<UseCase>()));
 
-  di.registerSingleton<CurrentUserRepository>(CurrentUserImplement(di<UseCase>()));
-  di.registerSingleton<ActionRepository>(ActionImplement(di<UseCase>()));
-  di.registerSingleton<LayoutCubit>(LayoutCubit());
+  di.registerLazySingleton<CurrentUserRepository>(()=>CurrentUserImplement(di<UseCase>()));
+  di.registerLazySingleton<ActionRepository>(()=>ActionImplement(di<UseCase>()));
+
+  di.registerLazySingleton<LoginRepository>(()=>LoginImplement(di<UseCase>()));
+
+  di.registerSingleton<LoginCubit>(LoginCubit(di<LoginRepository>()));
+
+  di.registerLazySingleton<LayoutCubit>(()=>LayoutCubit());
   di.registerSingleton<SearchCubit>(SearchCubit(di<SearchRepository>()));
 
-  di.registerSingleton<HomeCubit>(HomeCubit(di<ActionRepository>()));
+  di.registerFactory<HomeCubit>(()=>HomeCubit(di<ActionRepository>()));
   di.registerSingleton<UserInfoCubit>(UserInfoCubit(di<CurrentUserRepository>()));
-  di.registerSingleton<RecentQuesCubit>(
-      RecentQuesCubit(di<ArticleRepository>()));
-  di.registerSingleton<MostAnswerCubit>(
+  di.registerFactory<RecentQuesCubit>(()=>RecentQuesCubit(di<ArticleRepository>()));
+  di.registerFactory<MostAnswerCubit>(()=>
       MostAnswerCubit(di<ArticleRepository>()));
-  di.registerSingleton<AnswerQuesCubit>(
+  di.registerFactory<AnswerQuesCubit>(()=>
       AnswerQuesCubit(di<ArticleRepository>()));
-  di.registerSingleton<BumpQueCubit>(BumpQueCubit(di<ArticleRepository>()));
+  di.registerFactory<BumpQueCubit>(()=>BumpQueCubit(di<ArticleRepository>()));
   di.registerFactory<MostVoteCubit>(() => MostVoteCubit(di<ArticleRepository>()));
-  di.registerSingleton<NoAnswerQusCubit>(
+  di.registerFactory<NoAnswerQusCubit>(()=>
       NoAnswerQusCubit(di<ArticleRepository>()));
-  di.registerSingleton<RecentPostQuesCubit>(
+  di.registerFactory<RecentPostQuesCubit>(()=>
       RecentPostQuesCubit(di<ArticleRepository>()));
 
-  di.registerSingleton<FavCubit>(FavCubit(di<FavoriteRepository>()));
+  di.registerLazySingleton<FavCubit>(()=>FavCubit(di<FavoriteRepository>()));
 
-  di.registerLazySingleton<CategoryCubit>(
+  di.registerFactory<CategoryCubit>(
       () => CategoryCubit(di<CategoryRepository>()));
-  di.registerFactory<SingleCategoryCubit>(
-      () => SingleCategoryCubit(di<CategoryRepository>()));
+  di.registerFactory<SingleCategoryCubit>( ()=>SingleCategoryCubit(di<CategoryRepository>()));
 
-  di.registerLazySingleton<SinglePostCubit>(
+
+  di.registerFactory<SinglePostCubit>(
       () => SinglePostCubit(di<SingleQuestionRepository>()));
 
   di.registerLazySingleton<FaqCubit>(() => FaqCubit(di<SettingRepository>()));
   di.registerLazySingleton<NotifyCubit>(
       () => NotifyCubit(di<SettingRepository>()));
-  di.registerSingleton<TagCubit>(TagCubit(di<TagsRepository>()));
+  di.registerLazySingleton<TagCubit>(() =>TagCubit(di<TagsRepository>()));
 }
